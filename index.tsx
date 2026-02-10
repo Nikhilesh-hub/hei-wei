@@ -13,7 +13,7 @@ interface ErrorBoundaryState {
 
 // Simple Error Boundary to catch crashes (like missing API keys or browser issues)
 // and display a helpful message instead of a white screen.
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   public state: ErrorBoundaryState = {
     hasError: false,
     error: null
@@ -35,7 +35,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           <p style={{ maxWidth: '600px', textAlign: 'center', color: '#a1a1aa', marginBottom: '2rem' }}>
             {this.state.error?.message || "An unexpected error occurred."}
           </p>
-          <button 
+          <button
             onClick={() => window.location.reload()}
             style={{ padding: '12px 24px', backgroundColor: '#6366f1', color: 'white', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold' }}
           >
