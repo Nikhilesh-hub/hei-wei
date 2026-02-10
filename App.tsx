@@ -61,7 +61,7 @@ const App: React.FC = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-purple-500">wei.</span>
               </h2>
               <p className="text-zinc-400 text-lg lg:text-xl font-light mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                Precision biometrics powered by spatial AI. Instantly estimate body metrics from a single frame.
+                Instant body metrics from a single photo.
               </p>
 
               <div className="bg-zinc-900/60 rounded-[2.5rem] p-10 border border-white/5 text-left backdrop-blur-md shadow-inner">
