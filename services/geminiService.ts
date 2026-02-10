@@ -29,9 +29,15 @@ const responseSchema = {
 };
 
 export async function analyzeImageForMetrics(base64Image: string): Promise<{ heightCm: number; weightKg: number; accuracy: 'high' | 'medium' | 'low' }> {
-    // Initialize the client using process.env.API_KEY directly as per strict guidelines.
-    // We assume the variable is pre-configured and valid.
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // standard Vite env vars
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ''; // Fallback to empty string to avoid crash, handle validation later
+    const MODEL_NAME = import.meta.env.VITE_GEMINI_MODEL || 'gemini-2.0-flash';
+
+    if (!API_KEY) {
+        console.error("VITE_GEMINI_API_KEY is missing! Please check your .env file or Vercel settings.");
+    }
+
+    const ai = new GoogleGenAI({ apiKey: API_KEY });
 
     const imagePart = {
         inlineData: {
@@ -61,7 +67,7 @@ Return ONLY the JSON object.`
 
     try {
         const response = await ai.models.generateContent({
-            model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
+            model: MODEL_NAME,
             contents: { parts: [imagePart, textPart] },
             config: {
                 responseMimeType: 'application/json',
