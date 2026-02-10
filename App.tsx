@@ -4,7 +4,7 @@ import { ResultDisplay } from './components/ResultDisplay';
 import { CameraInput } from './components/CameraInput';
 import { analyzeImageForMetrics } from './services/geminiService';
 import type { AnalysisResult } from './types';
-import { LogoIcon, CameraIcon, UploadIcon, SpinnerIcon, CheckIcon } from './components/icons';
+import { LogoIcon, CameraIcon, UploadIcon, SpinnerIcon, CheckIcon, BodyScanIcon } from './components/icons';
 
 type Step = 'source' | 'capture' | 'loading' | 'result';
 type CaptureMode = 'upload' | 'camera';
@@ -53,7 +53,7 @@ const App: React.FC = () => {
             <div className="flex flex-col text-center lg:text-left">
               <div className="mb-10 flex justify-center lg:justify-start">
                 <div className="p-4 bg-white/5 rounded-3xl border border-white/10 inline-block shadow-2xl">
-                  <LogoIcon className="w-12 h-12 text-brand" />
+                  <BodyScanIcon className="w-12 h-12 text-brand" />
                 </div>
               </div>
               <h2 className="text-5xl xl:text-7xl font-bold text-white mb-6 tracking-tighter leading-[0.9]">
