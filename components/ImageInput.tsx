@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { UploadIcon, ArrowLeftIcon, CameraIcon } from './icons';
+import { resizeImage } from '../utils/imageUtils';
 
 interface ImageInputProps {
     onAnalyze: (base64Image: string) => void;
@@ -11,14 +12,21 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
     const [isDragging, setIsDragging] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileSelect = useCallback((file: File | null) => {
+    const handleFileSelect = useCallback(async (file: File | null) => {
         if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const base64 = (e.target?.result as string)?.split(',')[1];
-                if (base64) onAnalyze(base64);
-            };
-            reader.readAsDataURL(file);
+            try {
+                const base64 = await resizeImage(file);
+                onAnalyze(base64);
+            } catch (error) {
+                console.error("Image processing error:", error);
+                // Fallback to original if resize fails (unlikely)
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const base64 = (e.target?.result as string)?.split(',')[1];
+                    if (base64) onAnalyze(base64);
+                };
+                reader.readAsDataURL(file);
+            }
         }
     }, [onAnalyze]);
 
