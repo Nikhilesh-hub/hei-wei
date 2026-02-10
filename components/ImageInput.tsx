@@ -103,9 +103,9 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                     <h4 className="text-xl font-bold text-white mb-6">Best Practices</h4>
                     <div className="space-y-6">
                         {[
-                            { label: "Lighting", text: "Use bright, even lighting from the front." },
-                            { label: "Distance", text: "Ensure the full body is visible in the frame." },
-                            { label: "Angle", text: "Phone at chest height, facing straight." }
+                            { label: "Reference", text: "Stand near a door frame or standard object for scale." },
+                            { label: "Lighting", text: "Use bright, even lighting to show body definition." },
+                            { label: "Distance", text: "Ensure full body (head to toe) is clearly visible." }
                         ].map((item, i) => (
                             <div key={i} className="flex gap-4">
                                 <div className="w-1.5 h-1.5 mt-2 bg-zinc-600 rounded-full"></div>
