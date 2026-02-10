@@ -91,9 +91,10 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                     <input
                         type="file"
                         accept="image/*"
+                        // @ts-ignore: React 19 types might be strict about this string attribute
                         capture={isCamera ? "environment" : undefined}
                         ref={fileInputRef}
-                        onChange={(e) => handleFileSelect(e.target.files?.[0] ?? null)}
+                        onChange={(e) => { void handleFileSelect(e.target.files?.[0] ?? null); }}
                         className="hidden"
                     />
                 </div>
