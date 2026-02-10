@@ -50,19 +50,28 @@ export async function analyzeImageForMetrics(base64Image: string): Promise<{ hei
         text: `ACT AS A SENIOR BIOMETRIC SPECIALIST. 
 Your goal is to provide a HIGHLY ACCURATE height and weight estimation.
 
-ANALYSIS PROTOCOL:
-1.  SKELETAL MAPPING: Identify joints (ankles, knees, hips, shoulders, vertex).
-2.  PROPORTIONAL SCALING: Use the 'Heads-to-Height' ratio (standard adult is approx 7.5 heads tall).
-3.  PERSPECTIVE CORRECTION: Analyze the floor line and camera tilt. If the camera is at chest level, use standard vertical scaling.
-4.  VOLUMETRIC ESTIMATION: Calculate Body Mass Index based on visible frame width and muscularity/adiposity markers to determine weight.
+CRITICAL ANALYSIS PROTOCOL:
+1.  **SCALE CALIBRATION (CRITICAL):**
+    - Search for standard environmental objects to anchor scale:
+      - Door frames (~200cm height)
+      - Light switches (~110cm height)
+      - Floor tiles (~30-60cm)
+      - Chair seats (~45cm)
+    - Use these anchors to determine absolute height.
 
-IMAGE REQUIREMENTS:
-- If it's a child, return analysisSuccess: false with reason 'child_detected'.
-- If the feet or head are cut off, return accuracy: 'low'.
-- If full body is visible and posture is straight, return accuracy: 'high'.
+2.  **BODY COMPOSITION ANALYSIS:**
+    - Do NOT default to "average" BMI.
+    - Analyze **Muscle Mass vs. Adiiposity**: Look at deltoid definition, forearm vascularity, and abdominal structure.
+    - A muscular person will weigh 15-20% MORE than a non-muscular person of the same outline.
+    - Analyze **Bone Structure**: Wrist thickness and ankle width indicate frame size (small/medium/large).
 
-OUTPUT:
-Return ONLY the JSON object.`
+3.  **PERSPECTIVE CORRECTION:**
+    - If feet are closer to camera than head, subject appears taller. Adjust height DOWN.
+    - If shooting from above, subject appears shorter. Adjust height UP.
+
+OUTPUT REQUIREMENTS:
+- If child detected: review status 'child_detected'.
+- Return ONLY the JSON object.`
     };
 
     try {
