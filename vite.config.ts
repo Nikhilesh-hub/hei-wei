@@ -12,8 +12,8 @@ export default defineConfig(({ mode }) => {
     define: {
       // This ensures that process.env.API_KEY is replaced by the actual string value during build.
       // This prevents "process is not defined" errors in the browser.
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      'process.env.GEMINI_MODEL': JSON.stringify(env.GEMINI_MODEL || 'gemini-2.0-flash'),
+      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY),
+      'process.env.GEMINI_MODEL': JSON.stringify(env.GEMINI_MODEL || process.env.GEMINI_MODEL || 'gemini-2.0-flash'),
     },
   };
 });
