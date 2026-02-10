@@ -1,20 +1,54 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Hei-wei — AI Biometrics
 
-# Run and deploy your AI Studio app
+**Hei-wei** uses advanced AI to instantly estimate body metrics from a single photo.
 
-This contains everything you need to run your app locally.
+Whether you upload an image or use your camera, our spatial AI analyzes 32 skeletal landmarks to calculate your height, weight, and body proportions in seconds.
 
-View your app in AI Studio: https://ai.studio/apps/drive/10ASFV42TWSw6m0sVcNUKNv69EDH3h_7M
+## ✨ Features
 
-## Run Locally
+-   **Instant Analysis:** Get results in seconds.
+-   **High Accuracy:** Powered by Gemini 2.5 Flash.
+-   **Privacy First:** All processing happens securely.
+-   **Works Everywhere:** Mobile-friendly and responsive.
 
-**Prerequisites:**  Node.js
+## 🚀 How to Use
 
+1.  **Open the App.**
+2.  **Choose:** "Capture Image" (Camera) or "Upload Photo".
+3.  **Follow Guidelines:** Ensure full-body visibility and good lighting.
+4.  **View Results:** See your estimated metrics instantly.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🛠️ For Developers
+
+To run this project locally:
+
+1.  **Clone the repo:**
+    ```bash
+    git clone https://github.com/Nikhilesh-hub/hei-wei.git
+    cd hei-wei
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Set up Environment Variables:**
+    Create a `.env.local` file in the root directory and add your API credentials:
+    ```env
+    VITE_GEMINI_API_KEY=your_gemini_api_key_here
+    VITE_GEMINI_MODEL=gemini-2.5-flash
+    ```
+
+4.  **Run the app:**
+    ```bash
+    npm run dev
+    ```
+
+## 🔒 Security Note
+
+This project uses `VITE_` prefixed environment variables to ensure compatibility with Vercel and secure deployment. Your API keys are never exposed in the source code.
+
+---
+
+*Powered by Google Gemini AI*
