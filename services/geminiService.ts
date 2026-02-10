@@ -85,7 +85,9 @@ OUTPUT REQUIREMENTS:
         });
 
         // Robust cleanup: remove markdown code fences if present (e.g. ```json ... ```)
-        const jsonText = response.text.trim().replace(/^```json\s*/, '').replace(/\s*```$/, '');
+        const rawText = response.text;
+        if (!rawText) throw new Error("Empty response from AI");
+        const jsonText = rawText.trim().replace(/^```json\s*/, '').replace(/\s*```$/, '');
         const data: GeminiAnalysisResponse = JSON.parse(jsonText);
 
         if (!data.analysisSuccess) {
