@@ -70,7 +70,7 @@ const App: React.FC = () => {
                   <p className="text-xs font-bold text-brand uppercase tracking-[0.2em]">Technology</p>
                 </div>
                 <p className="text-zinc-300 leading-relaxed font-light text-lg">
-                  Hei-wei uses advanced computer vision to map 32 skeletal landmarks, analyzing body proportions and depth data to provide highly accurate biometric estimates.
+                  Hei-wei uses AI to analyze your body proportions and provide accurate estimates in seconds.
                 </p>
               </div>
             </div>
@@ -88,8 +88,8 @@ const App: React.FC = () => {
                       <CameraIcon className="w-6 h-6 text-brand" />
                     </div>
                     <div className="text-left">
-                      <span className="block text-2xl font-bold text-white group-hover:text-brand transition-colors mb-0.5">Start Camera</span>
-                      <span className="block text-xs text-zinc-500 uppercase tracking-widest font-medium">Instant Analysis</span>
+                      <span className="block text-2xl font-bold text-white group-hover:text-brand transition-colors mb-0.5">Capture Image</span>
+                      <span className="block text-xs text-zinc-500 uppercase tracking-widest font-medium">Use Camera</span>
                     </div>
                   </div>
                   <span className="text-zinc-800 font-light text-4xl group-hover:translate-x-2 transition-transform relative z-10">→</span>
