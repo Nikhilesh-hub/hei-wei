@@ -70,7 +70,7 @@ const App: React.FC = () => {
                   <p className="text-xs font-bold text-brand uppercase tracking-[0.2em]">Technology</p>
                 </div>
                 <p className="text-zinc-300 leading-relaxed font-light text-lg">
-                  Hei-wei identifies 32 skeletal landmarks to compute volumetric density and vertical scaling relative to the horizon line, delivering estimates with high consistency.
+                  Hei-wei uses advanced computer vision to map 32 skeletal landmarks, analyzing body proportions and depth data to provide highly accurate biometric estimates.
                 </p>
               </div>
             </div>
@@ -88,8 +88,8 @@ const App: React.FC = () => {
                       <CameraIcon className="w-6 h-6 text-brand" />
                     </div>
                     <div className="text-left">
-                      <span className="block text-2xl font-bold text-white group-hover:text-brand transition-colors mb-0.5">Live Camera</span>
-                      <span className="block text-xs text-zinc-500 uppercase tracking-widest font-medium">Auto-Capture</span>
+                      <span className="block text-2xl font-bold text-white group-hover:text-brand transition-colors mb-0.5">Start Camera</span>
+                      <span className="block text-xs text-zinc-500 uppercase tracking-widest font-medium">Instant Analysis</span>
                     </div>
                   </div>
                   <span className="text-zinc-800 font-light text-4xl group-hover:translate-x-2 transition-transform relative z-10">→</span>
@@ -105,8 +105,8 @@ const App: React.FC = () => {
                     <UploadIcon className="w-6 h-6 text-zinc-400" />
                   </div>
                   <div className="text-left">
-                    <span className="block text-2xl font-bold text-white">Upload File</span>
-                    <span className="block text-xs text-zinc-500 uppercase tracking-widest font-medium">Import Image</span>
+                    <span className="block text-2xl font-bold text-white">Upload Photo</span>
+                    <span className="block text-xs text-zinc-500 uppercase tracking-widest font-medium">From Gallery</span>
                   </div>
                 </div>
                 <span className="text-zinc-700 font-light text-4xl group-hover:translate-x-2 transition-transform">→</span>
