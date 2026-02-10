@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { ImageInput } from './components/ImageInput';
 import { ResultDisplay } from './components/ResultDisplay';
-import { CameraInput } from './components/CameraInput';
+
 import { analyzeImageForMetrics } from './services/geminiService';
 import type { AnalysisResult } from './types';
 import { LogoIcon, CameraIcon, UploadIcon, SpinnerIcon, CheckIcon, BodyScanIcon } from './components/icons';
@@ -119,9 +119,7 @@ const App: React.FC = () => {
           </div>
         );
       case 'capture':
-        return captureMode === 'upload'
-          ? <ImageInput onAnalyze={handleAnalysis} onBack={handleBack} />
-          : <CameraInput onAnalyze={handleAnalysis} onBack={handleBack} />;
+        return <ImageInput onAnalyze={handleAnalysis} onBack={handleBack} captureMode={captureMode} />;
       case 'loading':
         return (
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center animate-fade-in-up py-10 lg:py-0">
