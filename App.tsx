@@ -113,7 +113,7 @@ const App: React.FC = () => {
               </button>
 
               <p className="text-center text-xs text-zinc-600 mt-6 font-medium tracking-widest uppercase opacity-60">
-                Local Processing • Privacy Encrypted
+                Local Processing • Privacy Encrypted • v1.1
               </p>
             </div>
           </div>
