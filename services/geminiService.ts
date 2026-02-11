@@ -84,8 +84,9 @@ OUTPUT REQUIREMENTS:
             }
         });
 
-        // Robust cleanup: remove markdown code fences if present (e.g. ```json ... ```)
-        const rawText = response.text;
+        // Since application/json is requested, the response should be valid JSON
+        // but we still trim and handle potential markdown fences for maximum robustness.
+        const rawText = (await response).text;
         if (!rawText) throw new Error("Empty response from AI");
         const jsonText = rawText.trim().replace(/^```json\s*/, '').replace(/\s*```$/, '');
         const data: GeminiAnalysisResponse = JSON.parse(jsonText);
@@ -102,8 +103,11 @@ OUTPUT REQUIREMENTS:
 
     } catch (error: any) {
         console.error("Gemini Error:", error);
-        if (error.message?.includes("entity was not found")) {
-            throw new Error("API configuration error. Please ensure a valid paid project key is used.");
+        if (error.message?.includes("API_KEY_INVALID")) {
+            throw new Error("Invalid API key. Please check your .env.local file.");
+        }
+        if (error.message?.includes("model not found")) {
+            throw new Error(`The model "${MODEL_NAME}" was not found. Please check your configuration.`);
         }
         throw new Error(error.message || "The AI encountered an error during precision analysis.");
     }
