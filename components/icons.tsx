@@ -91,3 +91,11 @@ export const BodyScanIcon: React.FC<{ className?: string }> = ({ className = "w-
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h18M3 12a9 9 0 0 1 9-9h.01M21 12a9 9 0 0 0-9-9" className="opacity-50" strokeDasharray="2 2" />
     </svg>
 );
+
+export const HeiWeiLogo: React.FC<{ className?: string }> = ({ className = "w-8 h-8" }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#00A562" />
+        <path d="M10 8v16M22 8v16M10 16h12" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M7 8h6M7 24h6M19 8h6M19 24h6" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+    </svg>
+);

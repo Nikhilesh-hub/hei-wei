@@ -19,7 +19,6 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                 onAnalyze(base64);
             } catch (error) {
                 console.error("Image processing error:", error);
-                // Fallback to original if resize fails (unlikely)
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const base64 = (e.target?.result as string)?.split(',')[1];
@@ -42,17 +41,14 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
         return () => window.removeEventListener('paste', handlePaste);
     }, [handleFileSelect]);
 
-    // Automatically trigger click on mount if in camera mode on mobile often helps, 
-    // but here we let the user click the big area to be safe and avoid popup blockers.
-
     const isCamera = captureMode === 'camera';
 
     return (
-        <div className="w-full flex flex-col animate-slide-up h-full justify-center">
+        <div className="w-full flex flex-col animate-fade-in-up h-full justify-center">
             <div className="w-full flex justify-between items-center mb-8">
                 <button
                     onClick={onBack}
-                    className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors bg-white/5 px-4 py-2 rounded-xl"
+                    className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors bg-neutral-800 hover:bg-neutral-700 px-4 py-2.5 rounded-xl border border-neutral-700"
                 >
                     <ArrowLeftIcon className="w-4 h-4" />
                     <span className="text-xs font-bold uppercase tracking-widest">Back</span>
@@ -66,7 +62,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
                 {/* Left: Action Area */}
                 <div
-                    className={`w-full aspect-[4/3] lg:aspect-auto lg:h-[500px] border-2 border-dashed rounded-[2.5rem] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${isDragging ? 'border-brand bg-brand/5' : 'border-zinc-700 bg-zinc-900/30 hover:bg-zinc-800/50 hover:border-zinc-500'}`}
+                    className={`w-full aspect-[4/3] lg:aspect-auto lg:h-[500px] border-2 border-dashed rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${isDragging ? 'border-brand bg-brand/5' : 'border-neutral-700 bg-neutral-900 hover:bg-neutral-800 hover:border-neutral-500'}`}
                     onClick={() => fileInputRef.current?.click()}
                     onDragEnter={() => setIsDragging(true)}
                     onDragLeave={() => setIsDragging(false)}
@@ -77,16 +73,16 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                         handleFileSelect(e.dataTransfer.files?.[0] ?? null);
                     }}
                 >
-                    <div className="w-20 h-20 bg-zinc-800 rounded-3xl flex items-center justify-center mb-6 border border-white/5 shadow-2xl">
-                        {isCamera ? <CameraIcon className="w-8 h-8 text-brand" /> : <UploadIcon className="w-8 h-8 text-brand" />}
+                    <div className="w-16 h-16 bg-neutral-800 rounded-2xl flex items-center justify-center mb-6 border border-neutral-700">
+                        {isCamera ? <CameraIcon className="w-7 h-7 text-brand" /> : <UploadIcon className="w-7 h-7 text-brand" />}
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-2">
                         {isCamera ? 'Tap to Capture' : 'Upload Photo'}
                     </h3>
-                    <p className="text-zinc-400 mb-6 text-center max-w-xs">
-                        {isCamera ? 'Opens your device camera' : <>Drag & drop an image or <br /> paste from clipboard <span className="text-brand font-bold bg-brand/10 px-2 py-0.5 rounded text-xs">Ctrl+V</span></>}
+                    <p className="text-zinc-400 mb-6 text-center max-w-xs text-sm">
+                        {isCamera ? 'Opens your device camera' : <>Drag & drop an image or <br />paste from clipboard <span className="text-brand font-bold bg-brand/10 px-2 py-0.5 rounded text-xs">Ctrl+V</span></>}
                     </p>
-                    <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest bg-zinc-900 px-3 py-1 rounded-full">JPG • PNG • HEIC</p>
+                    <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest bg-neutral-800 px-3 py-1.5 rounded-full border border-neutral-700">JPG • PNG • HEIC</p>
 
                     <input
                         type="file"
@@ -100,18 +96,18 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                 </div>
 
                 {/* Right: Info Panel */}
-                <div className="bg-zinc-900/50 rounded-[2.5rem] p-8 lg:p-12 border border-white/5 flex flex-col justify-center">
+                <div className="bg-neutral-900 rounded-2xl p-8 lg:p-10 border border-neutral-800 flex flex-col justify-center">
                     <h4 className="text-xl font-bold text-white mb-6">Best Practices</h4>
-                    <div className="space-y-6">
+                    <div className="space-y-5">
                         {[
                             { label: "Reference", text: "Stand near a door frame or standard object for scale." },
                             { label: "Lighting", text: "Use bright, even lighting to show body definition." },
                             { label: "Distance", text: "Ensure full body (head to toe) is clearly visible." }
                         ].map((item, i) => (
                             <div key={i} className="flex gap-4">
-                                <div className="w-1.5 h-1.5 mt-2 bg-zinc-600 rounded-full"></div>
+                                <div className="w-2.5 h-2.5 mt-1.5 bg-brand rounded-sm flex-shrink-0"></div>
                                 <div>
-                                    <p className="text-zinc-300 font-bold text-sm mb-1">{item.label}</p>
+                                    <p className="text-white font-bold text-sm mb-1">{item.label}</p>
                                     <p className="text-zinc-500 text-sm leading-relaxed">{item.text}</p>
                                 </div>
                             </div>

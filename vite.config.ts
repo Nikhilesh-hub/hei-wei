@@ -47,5 +47,13 @@ export default defineConfig(({ mode }) => {
     define: {
       // Optional: global constants if needed
     },
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+        },
+      },
+    },
   };
 });
