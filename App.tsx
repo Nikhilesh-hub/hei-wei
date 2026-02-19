@@ -256,10 +256,12 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
-      {/* Persistent Logo */}
-      <div className="w-full max-w-[1400px] mb-6 lg:mb-10">
-        <HeiWeiLogo className="w-9 h-9" />
-      </div>
+      {/* Logo — shown on all pages except landing */}
+      {step !== 'source' && (
+        <div className="w-full max-w-[1400px] mb-6 lg:mb-10">
+          <HeiWeiLogo className="w-9 h-9" />
+        </div>
+      )}
 
       <main className="w-full max-w-[1400px] flex-1">
         {error && (step === 'source') && (
