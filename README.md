@@ -1,53 +1,82 @@
-# Hei-wei — AI Biometrics
+# Hei-wei
 
-**Hei-wei** uses advanced AI to instantly estimate body metrics from a single photo.
+Estimate height and weight from a single photo using AI.
 
-Whether you upload an image or use your camera, our spatial AI analyzes 32 skeletal landmarks to calculate your height, weight, and body proportions in seconds.
+## Features
 
-## ✨ Features
+- **Camera or Upload** — snap a photo or pick from gallery
+- **AI-Powered** — Gemini 2.5 Flash analyzes 32 skeletal landmarks
+- **Instant Results** — height, weight, and confidence in seconds
+- **Metric / Imperial** — toggle between unit systems
+- **Privacy** — photos are never stored
 
--   **Instant Analysis:** Get results in seconds.
--   **High Accuracy:** Powered by Gemini 2.5 Flash.
--   **Privacy First:** All processing happens securely.
--   **Works Everywhere:** Mobile-friendly and responsive.
+## Quick Start
 
-## 🚀 How to Use
+```bash
+git clone https://github.com/Nikhilesh-hub/hei-wei.git
+cd hei-wei
+npm install
+```
 
-1.  **Open the App.**
-2.  **Choose:** "Capture Image" (Camera) or "Upload Photo".
-3.  **Follow Guidelines:** Ensure full-body visibility and good lighting.
-4.  **View Results:** See your estimated metrics instantly.
+Create `.env.local`:
 
-## 🛠️ For Developers
+```env
+VITE_GEMINI_API_KEY=your_api_key_here
+VITE_GEMINI_MODEL=gemini-2.5-flash
+```
 
-To run this project locally:
+Run:
 
-1.  **Clone the repo:**
-    ```bash
-    git clone https://github.com/Nikhilesh-hub/hei-wei.git
-    cd hei-wei
-    ```
+```bash
+npm run dev
+```
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+This starts both the Vite dev server (`localhost:5173`) and the Express API proxy (`localhost:3001`).
 
-3.  **Set up Environment Variables:**
-    Create a `.env.local` file in the root directory and add your API credentials:
-    ```env
-    VITE_GEMINI_API_KEY=your_gemini_api_key_here
-    VITE_GEMINI_MODEL=gemini-2.5-flash
-    ```
+## Tech Stack
 
-4.  **Run the app:**
-    ```bash
-    npm run dev
-    ```
+| Layer | Tech |
+|-------|------|
+| Frontend | React + TypeScript |
+| Styling | Tailwind CSS (CDN) |
+| Font | Space Grotesk |
+| AI | Google Gemini 2.5 Flash |
+| API Proxy | Express.js (`server.js`) |
+| Build | Vite |
+| Deploy | Vercel |
 
-## 🔒 Security Note
+## Project Structure
 
-This project uses `VITE_` prefixed environment variables to ensure compatibility with Vercel and secure deployment. Your API keys are never exposed in the source code.
+```
+hei-wei/
+├── App.tsx                  # Main app — routing, loading, layout
+├── index.html               # HTML shell, theme config, font
+├── index.tsx                # React entry point
+├── server.js                # Express API proxy for Gemini
+├── components/
+│   ├── ImageInput.tsx       # Upload / camera capture
+│   ├── ResultDisplay.tsx    # Height, weight, confidence cards
+│   ├── Feedback.tsx         # Thumbs up/down feedback
+│   ├── Suggestions.tsx      # Health suggestions by BMI category
+│   └── icons.tsx            # SVG icon components + logo
+├── services/
+│   └── geminiService.ts     # API call to /api/analyze
+├── utils/
+│   └── imageUtils.ts        # Image resizing
+└── types.ts                 # TypeScript types
+```
+
+## How It Works
+
+1. User takes/uploads a full-body photo
+2. Image is base64-encoded and sent to `/api/analyze`
+3. Express proxy forwards to Gemini 2.5 Flash with a structured prompt
+4. AI returns estimated height (cm), weight (kg), and confidence level
+5. Results display with unit conversion and feedback option
+
+## License
+
+MIT
 
 ---
 
