@@ -148,10 +148,10 @@ const App: React.FC = () => {
                 <div className="mb-4 flex justify-center lg:justify-start">
                   <HeiWeiLogo className="w-16 h-16" />
                 </div>
-                <h2 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white mb-2 tracking-tight leading-[0.95]">
+                <h2 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white mb-2 tracking-tight leading-[1.1] lg:leading-[0.95]">
                   Hei-<span className="text-brand">wei.</span>
                 </h2>
-                <div className="flex items-center justify-center lg:justify-start gap-2 mb-4 h-10">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-2 gap-y-1 mb-4 min-h-[2.5rem]">
                   <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs sm:text-sm">Spatial AI for</span>
                   <GooeyText
                     texts={["Anthropometrics", "Biometrics", "Body Analysis", "Height & Weight", "Instant Metrics"]}
@@ -170,14 +170,14 @@ const App: React.FC = () => {
                       <div className="w-3 h-3 bg-brand rounded-sm"></div>
                       <p className="text-base font-bold text-brand uppercase tracking-widest">Accuracy</p>
                     </div>
-                    <p className="text-zinc-400 text-lg leading-relaxed">32 skeletal landmarks analyzed using advanced computer vision for precise measurements.</p>
+                    <p className="text-zinc-400 text-base lg:text-lg leading-relaxed">32 skeletal landmarks analyzed using advanced computer vision for precise measurements.</p>
                   </div>
                   <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover-lift">
                     <div className="flex items-center gap-2 mb-3">
                       <div className="w-3 h-3 bg-brand rounded-sm"></div>
                       <p className="text-base font-bold text-brand uppercase tracking-widest">Privacy</p>
                     </div>
-                    <p className="text-zinc-400 text-lg leading-relaxed">Your photos are never stored. All processing happens in real-time and data is discarded instantly.</p>
+                    <p className="text-zinc-400 text-base lg:text-lg leading-relaxed">Your photos are never stored. All processing happens in real-time and data is discarded instantly.</p>
                   </div>
                 </div>
 
@@ -186,10 +186,10 @@ const App: React.FC = () => {
                     <div className="w-3 h-3 bg-brand rounded-sm"></div>
                     <p className="text-base font-bold text-brand uppercase tracking-widest">How It Works</p>
                   </div>
-                  <p className="text-zinc-400 leading-relaxed text-lg mb-6">
+                  <p className="text-zinc-400 leading-relaxed text-base lg:text-lg mb-6">
                     Hei-wei uses Google's Gemini AI to analyze body proportions from a single photograph. It estimates height and weight by identifying skeletal landmarks, calibrating against environmental reference objects, and correcting for camera perspective.
                   </p>
-                  <div className="flex gap-6 text-sm text-zinc-600 font-bold uppercase tracking-widest">
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-600 font-bold uppercase tracking-widest">
                     <span>◆ Head-to-toe ratio</span>
                     <span>◆ Bone structure</span>
                     <span>◆ Body density</span>
