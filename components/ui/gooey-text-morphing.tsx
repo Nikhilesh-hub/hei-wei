@@ -116,14 +116,14 @@ export function GooeyText({
                 <span
                     ref={text1Ref}
                     className={cn(
-                        "absolute inline-block select-none text-center lg:text-left",
+                        "absolute inline-block select-none text-center lg:text-left whitespace-nowrap",
                         textClassName
                     )}
                 />
                 <span
                     ref={text2Ref}
                     className={cn(
-                        "absolute inline-block select-none text-center lg:text-left",
+                        "absolute inline-block select-none text-center lg:text-left whitespace-nowrap",
                         textClassName
                     )}
                 />

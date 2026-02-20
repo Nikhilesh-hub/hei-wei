@@ -151,12 +151,12 @@ const App: React.FC = () => {
                 <h2 className="text-6xl xl:text-8xl font-extrabold text-white mb-2 tracking-tight leading-[0.95]">
                   Hei-<span className="text-brand">wei.</span>
                 </h2>
-                <div className="flex items-center justify-center lg:justify-start gap-2 mb-4 h-10">
-                  <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs sm:text-sm">Spatial AI for</span>
+                <div className="flex items-center justify-center lg:justify-start gap-2 mb-4 h-10 whitespace-nowrap">
+                  <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs sm:text-sm whitespace-nowrap">Spatial AI for</span>
                   <GooeyText
                     texts={["Anthropometrics", "Biometrics", "Body Analysis", "Height & Weight", "Instant Metrics"]}
                     className="text-brand h-full"
-                    textClassName="text-xs sm:text-sm font-bold uppercase tracking-widest"
+                    textClassName="text-xs sm:text-sm font-bold uppercase tracking-widest whitespace-nowrap"
                   />
                 </div>
                 <p className="text-zinc-400 text-xl lg:text-2xl font-normal mb-6 max-w-lg mx-auto lg:mx-0 leading-relaxed">
@@ -348,12 +348,12 @@ const App: React.FC = () => {
               <div className="flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-2.5 h-2.5 bg-red-500 rounded-sm"></div>
-                  <span className="text-sm font-bold text-red-400 uppercase tracking-widest">Analysis Error</span>
+                  <span className="text-base font-bold text-red-400 uppercase tracking-widest">Analysis Error</span>
                 </div>
                 <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">{guidance.title}</h2>
 
                 <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
-                  <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Try the following</p>
+                  <p className="text-base font-bold text-zinc-500 uppercase tracking-widest mb-4">Try the following</p>
                   <div className="space-y-3">
                     {guidance.tips.map((tip, i) => (
                       <div key={i} className="flex items-start gap-3">
