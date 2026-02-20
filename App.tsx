@@ -142,16 +142,16 @@ const App: React.FC = () => {
         return (
           <div className="w-full animate-fade-in-up">
             {/* Hero Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center py-6 lg:py-0">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-2 lg:py-0">
               {/* Left Column: Branding */}
               <div className="flex flex-col text-center lg:text-left">
-                <div className="mb-8 flex justify-center lg:justify-start">
+                <div className="mb-4 flex justify-center lg:justify-start">
                   <HeiWeiLogo className="w-16 h-16" />
                 </div>
                 <h2 className="text-6xl xl:text-8xl font-extrabold text-white mb-2 tracking-tight leading-[0.95]">
                   Hei-<span className="text-brand">wei.</span>
                 </h2>
-                <div className="flex items-center justify-center lg:justify-start gap-2 mb-8 h-10">
+                <div className="flex items-center justify-center lg:justify-start gap-2 mb-4 h-10">
                   <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs sm:text-sm">Spatial AI for</span>
                   <GooeyText
                     texts={["Anthropometrics", "Biometrics", "Body Analysis", "Height & Weight", "Instant Metrics"]}
@@ -159,12 +159,12 @@ const App: React.FC = () => {
                     textClassName="text-xs sm:text-sm font-bold uppercase tracking-widest"
                   />
                 </div>
-                <p className="text-zinc-400 text-xl lg:text-2xl font-normal mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                <p className="text-zinc-400 text-xl lg:text-2xl font-normal mb-6 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                   Instant body metrics from a single photo. Know your height and weight in seconds — powered by spatial AI.
                 </p>
 
                 {/* Feature highlights */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                   <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover-lift">
                     <div className="flex items-center gap-2 mb-3">
                       <div className="w-3 h-3 bg-brand rounded-sm"></div>
@@ -231,7 +231,7 @@ const App: React.FC = () => {
                   <span className="text-zinc-700 group-hover:text-white/40 font-light text-3xl group-hover:translate-x-1 transition-all duration-300">→</span>
                 </button>
 
-                <p className="text-center text-xs text-zinc-600 mt-4 font-semibold tracking-widest uppercase">
+                <p className="text-center text-xs text-zinc-600 mt-2 font-semibold tracking-widest uppercase">
                   Local Processing • Privacy Encrypted • v1.1
                 </p>
 
@@ -265,7 +265,7 @@ const App: React.FC = () => {
               {/* Right: Skeleton Results + Progress */}
               <div className="flex flex-col justify-center">
                 <p className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-2">Processing</p>
-                <p className="text-base text-zinc-400 font-normal mb-6">
+                <p className="text-lg text-zinc-400 font-normal mb-6">
                   Spatial AI is identifying skeletal landmarks to calculate your biometrics.
                 </p>
 
@@ -288,9 +288,9 @@ const App: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-sm bg-brand animate-pulse"></div>
-                      <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Analysis Steps</span>
+                      <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Analysis Steps</span>
                     </div>
-                    <span className="text-base font-bold text-brand tabular-nums">{loadingProgress}%</span>
+                    <span className="text-lg font-bold text-brand tabular-nums">{loadingProgress}%</span>
                   </div>
                   <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
                     <div
@@ -350,7 +350,7 @@ const App: React.FC = () => {
                   <div className="w-2.5 h-2.5 bg-red-500 rounded-sm"></div>
                   <span className="text-sm font-bold text-red-400 uppercase tracking-widest">Analysis Error</span>
                 </div>
-                <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight mb-4">{guidance.title}</h2>
+                <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">{guidance.title}</h2>
 
                 <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
                   <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Try the following</p>
@@ -393,7 +393,7 @@ const App: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
+    <div className="min-h-screen flex flex-col items-center py-4 lg:py-8 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
       <Confetti active={showConfetti} />
       {/* Theme Toggle — always visible */}
       {/* Theme Toggle — always visible */}
@@ -415,7 +415,7 @@ const App: React.FC = () => {
         {/* Main Content Card */}
         <div className={`
             glass rounded-3xl relative overflow-hidden transition-all duration-700
-            ${step === 'source' ? 'p-8 lg:p-14' : step === 'loading' ? 'p-4 lg:p-6' : 'p-6 lg:p-10'}
+            ${step === 'source' ? 'p-6 lg:p-10' : step === 'loading' ? 'p-4 lg:p-6' : 'p-6 lg:p-10'}
         `}>
           {renderContent()}
         </div>

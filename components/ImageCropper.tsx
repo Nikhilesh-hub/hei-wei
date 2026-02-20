@@ -133,19 +133,19 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({ imageBase64, onCrop,
         <div className="w-full animate-fade-in-up py-4 lg:py-0">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h2 className="text-2xl font-black text-white tracking-tight">Crop Image</h2>
-                    <p className="text-base text-zinc-400 mt-1">Drag to position, resize from any corner</p>
+                    <h2 className="text-3xl font-black text-white tracking-tight">Crop Image</h2>
+                    <p className="text-lg text-zinc-400 mt-1">Drag to position, resize from any corner</p>
                 </div>
                 <div className="flex gap-3">
                     <button
                         onClick={onSkip}
-                        className="bg-neutral-900 hover:bg-neutral-800 text-zinc-300 px-5 py-2.5 rounded-xl font-bold text-sm uppercase tracking-widest border border-neutral-700 transition-all active:scale-95"
+                        className="bg-neutral-900 hover:bg-neutral-800 text-zinc-300 px-5 py-2.5 rounded-xl font-bold text-base uppercase tracking-widest border border-neutral-700 transition-all active:scale-95"
                     >
                         Skip
                     </button>
                     <button
                         onClick={handleCrop}
-                        className="bg-brand hover:bg-brand-light text-white px-5 py-2.5 rounded-xl font-bold text-sm uppercase tracking-widest transition-all active:scale-95"
+                        className="bg-brand hover:bg-brand-light text-white px-5 py-2.5 rounded-xl font-bold text-base uppercase tracking-widest transition-all active:scale-95"
                     >
                         Crop & Analyze
                     </button>
