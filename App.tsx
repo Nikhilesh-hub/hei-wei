@@ -58,15 +58,8 @@ const App: React.FC = () => {
   const [loadingStepIdx, setLoadingStepIdx] = useState(0);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(() => {
-    try { return !localStorage.getItem('heiwei_onboarded'); } catch { return false; }
-  });
   const loadingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const handleOnboardingComplete = useCallback(() => {
-    setShowOnboarding(false);
-    try { localStorage.setItem('heiwei_onboarded', 'true'); } catch { }
-  }, []);
 
   // Animated loading progress
   useEffect(() => {
@@ -403,7 +396,6 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
       <Confetti active={showConfetti} />
-      {showOnboarding && <Onboarding onComplete={handleOnboardingComplete} />}
       {/* Theme Toggle — always visible */}
       <button
         onClick={toggleTheme}
