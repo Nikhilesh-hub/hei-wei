@@ -1,14 +1,43 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { ImageInput } from './components/ImageInput';
 import { ResultDisplay } from './components/ResultDisplay';
+import { Confetti } from './components/Confetti';
+import { Onboarding } from './components/Onboarding';
+import { ImageCropper } from './components/ImageCropper';
+import { ComparisonMode } from './components/ComparisonMode';
 
 import { analyzeImageForMetrics } from './services/geminiService';
 import type { AnalysisResult } from './types';
-import { CameraIcon, UploadIcon, SpinnerIcon, CheckIcon, BodyScanIcon, HeiWeiLogo } from './components/icons';
+import { CameraIcon, UploadIcon, SpinnerIcon, CheckIcon, BodyScanIcon, HeiWeiLogo, RetryIcon, AlertTriangleIcon, SunIcon, MoonIcon } from './components/icons';
+import { useTheme } from './components/ThemeContext';
 
-type Step = 'source' | 'capture' | 'loading' | 'result';
+type Step = 'source' | 'capture' | 'crop' | 'loading' | 'result' | 'error' | 'compare';
 type CaptureMode = 'upload' | 'camera';
 export type UnitSystem = 'metric' | 'imperial';
+
+// Map error messages to user-friendly guidance
+const getErrorGuidance = (error: string): { title: string; tips: string[] } => {
+  const lower = error.toLowerCase();
+  if (lower.includes('no_person') || lower.includes('no person')) {
+    return { title: 'No person detected', tips: ['Make sure your full body is in the frame', 'Stand in a well-lit area', 'Avoid busy backgrounds'] };
+  }
+  if (lower.includes('child')) {
+    return { title: 'Child detected', tips: ['This app is designed for adults only', 'Please upload a photo of an adult'] };
+  }
+  if (lower.includes('dark') || lower.includes('unclear') || lower.includes('image_unclear')) {
+    return { title: 'Image too unclear', tips: ['Use brighter, even lighting', 'Avoid backlit or silhouette photos', 'Hold the camera steady'] };
+  }
+  if (lower.includes('multiple') || lower.includes('multiple_people')) {
+    return { title: 'Multiple people detected', tips: ['Only one person should be in the photo', 'Crop the image to show just one person', 'Take a new photo with only you in frame'] };
+  }
+  if (lower.includes('quota') || lower.includes('429')) {
+    return { title: 'Service busy', tips: ['Too many requests right now', 'Wait a moment and try again', 'Try during off-peak hours'] };
+  }
+  if (lower.includes('api_key') || lower.includes('401')) {
+    return { title: 'Authentication error', tips: ['Server configuration issue', 'Please try again later'] };
+  }
+  return { title: 'Analysis failed', tips: ['Ensure full body (head to toe) is visible', 'Use good lighting and a clear background', 'Try a different photo'] };
+};
 
 const ANALYSIS_STEPS = [
   { label: 'Skeletal Mapping', detail: 'Identifying 32 joint landmarks' },
@@ -24,10 +53,20 @@ const App: React.FC = () => {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [unitSystem, setUnitSystem] = useState<UnitSystem>('metric');
+  const [referenceObject, setReferenceObject] = useState<string>('none');
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [loadingStepIdx, setLoadingStepIdx] = useState(0);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    try { return !localStorage.getItem('heiwei_onboarded'); } catch { return false; }
+  });
   const loadingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const handleOnboardingComplete = useCallback(() => {
+    setShowOnboarding(false);
+    try { localStorage.setItem('heiwei_onboarded', 'true'); } catch { }
+  }, []);
 
   // Animated loading progress
   useEffect(() => {
@@ -55,24 +94,46 @@ const App: React.FC = () => {
     };
   }, [step]);
 
+  const handleImageCaptured = useCallback((base64Image: string) => {
+    setCurrentImage(base64Image);
+    setStep('crop');
+  }, []);
+
+  const handleCropComplete = useCallback((croppedBase64: string) => {
+    handleAnalysis(croppedBase64);
+  }, []);
+
+  const handleSkipCrop = useCallback(() => {
+    if (currentImage) handleAnalysis(currentImage);
+  }, [currentImage]);
+
   const handleAnalysis = useCallback(async (base64Image: string) => {
     setCurrentImage(base64Image);
     setStep('loading');
     setError(null);
     try {
-      const { heightCm, weightKg, accuracy } = await analyzeImageForMetrics(base64Image);
+      const { heightCm, weightKg, accuracy } = await analyzeImageForMetrics(base64Image, referenceObject);
       setResult({ heightCm, weightKg, accuracy });
       setStep('result');
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Analysis failed. Try again with a clearer photo.');
-      setStep('source');
+      setStep('error');
     }
-  }, []);
+  }, [referenceObject]);
+
+  const handleRetry = useCallback(() => {
+    if (currentImage) {
+      handleAnalysis(currentImage);
+    }
+  }, [currentImage, handleAnalysis]);
 
   const handleReset = () => {
     setResult(null);
     setError(null);
     setCurrentImage(null);
+    setReferenceObject('none');
     setStep('source');
   };
 
@@ -103,31 +164,31 @@ const App: React.FC = () => {
 
                 {/* Feature highlights */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+                  <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover-lift">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-2 h-2 bg-brand rounded-sm"></div>
-                      <p className="text-xs font-bold text-brand uppercase tracking-widest">Accuracy</p>
+                      <p className="text-sm font-bold text-brand uppercase tracking-widest">Accuracy</p>
                     </div>
-                    <p className="text-zinc-400 text-sm leading-relaxed">32 skeletal landmarks analyzed using advanced computer vision for precise measurements.</p>
+                    <p className="text-zinc-400 text-base leading-relaxed">32 skeletal landmarks analyzed using advanced computer vision for precise measurements.</p>
                   </div>
-                  <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+                  <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover-lift">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-2 h-2 bg-brand rounded-sm"></div>
-                      <p className="text-xs font-bold text-brand uppercase tracking-widest">Privacy</p>
+                      <p className="text-sm font-bold text-brand uppercase tracking-widest">Privacy</p>
                     </div>
-                    <p className="text-zinc-400 text-sm leading-relaxed">Your photos are never stored. All processing happens in real-time and data is discarded instantly.</p>
+                    <p className="text-zinc-400 text-base leading-relaxed">Your photos are never stored. All processing happens in real-time and data is discarded instantly.</p>
                   </div>
                 </div>
 
                 <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 text-left">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-2 h-2 bg-brand rounded-sm"></div>
-                    <p className="text-xs font-bold text-brand uppercase tracking-widest">How It Works</p>
+                    <p className="text-sm font-bold text-brand uppercase tracking-widest">How It Works</p>
                   </div>
-                  <p className="text-zinc-400 leading-relaxed text-sm mb-4">
+                  <p className="text-zinc-400 leading-relaxed text-base mb-4">
                     Hei-wei uses Google's Gemini AI to analyze body proportions from a single photograph. It estimates height and weight by identifying skeletal landmarks, calibrating against environmental reference objects, and correcting for camera perspective.
                   </p>
-                  <div className="flex gap-6 text-[10px] text-zinc-600 font-bold uppercase tracking-widest">
+                  <div className="flex gap-6 text-xs text-zinc-600 font-bold uppercase tracking-widest">
                     <span>◆ Head-to-toe ratio</span>
                     <span>◆ Bone structure</span>
                     <span>◆ Body density</span>
@@ -147,7 +208,7 @@ const App: React.FC = () => {
                     </div>
                     <div className="text-left">
                       <span className="block text-xl font-bold text-white">Capture Image</span>
-                      <span className="block text-xs text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">Use Camera</span>
+                      <span className="block text-sm text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">Use Camera</span>
                     </div>
                   </div>
                   <span className="text-zinc-700 group-hover:text-white/40 font-light text-3xl group-hover:translate-x-1 transition-all duration-300">→</span>
@@ -163,85 +224,168 @@ const App: React.FC = () => {
                     </div>
                     <div className="text-left">
                       <span className="block text-xl font-bold text-white">Upload Photo</span>
-                      <span className="block text-xs text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">From Gallery</span>
+                      <span className="block text-sm text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">From Gallery</span>
                     </div>
                   </div>
                   <span className="text-zinc-700 group-hover:text-white/40 font-light text-3xl group-hover:translate-x-1 transition-all duration-300">→</span>
                 </button>
 
-                <p className="text-center text-[10px] text-zinc-600 mt-4 font-semibold tracking-widest uppercase">
+                <p className="text-center text-xs text-zinc-600 mt-4 font-semibold tracking-widest uppercase">
                   Local Processing • Privacy Encrypted • v1.1
                 </p>
+
+                {/* Compare Mode Link */}
+                <button
+                  onClick={() => setStep('compare')}
+                  className="mt-4 w-full text-center text-sm text-zinc-500 hover:text-brand font-bold uppercase tracking-widest transition-colors py-2"
+                >
+                  ⚖️ Compare Mode — Track Changes Over Time
+                </button>
               </div>
             </div>
           </div>
         );
+      case 'compare':
+        return <ComparisonMode onBack={handleReset} />;
       case 'capture':
-        return <ImageInput onAnalyze={handleAnalysis} onBack={handleBack} captureMode={captureMode} />;
+        return <ImageInput onAnalyze={handleImageCaptured} onBack={handleBack} captureMode={captureMode} referenceObject={referenceObject} onReferenceChange={setReferenceObject} />;
+      case 'crop':
+        return currentImage ? <ImageCropper imageBase64={currentImage} onCrop={handleCropComplete} onSkip={handleSkipCrop} /> : null;
       case 'loading':
         return (
           <div className="w-full animate-fade-in-up py-4 lg:py-0">
-            {/* Full-width image with scanning overlay */}
-            <div className="relative w-full min-h-[70vh] lg:min-h-[80vh] bg-black rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl">
-              {currentImage && (
-                <>
-                  <img src={`data:image/jpeg;base64,${currentImage}`} alt="Analyzing" className="w-full h-full object-contain absolute inset-0 opacity-60" />
-                  <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-brand/50 to-transparent blur-xl animate-scan"></div>
-                </>
-              )}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-black/50 backdrop-blur-md p-4 rounded-full border border-white/10">
-                  <SpinnerIcon className="w-12 h-12 text-white" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Left: Image with scanning overlay */}
+              <div className="relative w-full min-h-[50vh] lg:min-h-[60vh] bg-black rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl">
+                {currentImage && (
+                  <>
+                    <img src={`data:image/jpeg;base64,${currentImage}`} alt="Analyzing" className="w-full h-full object-contain absolute inset-0 opacity-60" />
+                    <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-brand/50 to-transparent blur-xl animate-scan"></div>
+                  </>
+                )}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-black/50 backdrop-blur-md p-4 rounded-full border border-white/10">
+                    <SpinnerIcon className="w-10 h-10 text-white" />
+                  </div>
                 </div>
               </div>
 
-              {/* Overlay: Progress panel at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                <div className="max-w-lg">
-                  <p className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-2">Processing</p>
-                  <p className="text-sm text-zinc-400 font-normal mb-5">
-                    Spatial AI is identifying skeletal landmarks to calculate your biometrics.
-                  </p>
+              {/* Right: Skeleton Results + Progress */}
+              <div className="flex flex-col justify-center">
+                <p className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-2">Processing</p>
+                <p className="text-base text-zinc-400 font-normal mb-6">
+                  Spatial AI is identifying skeletal landmarks to calculate your biometrics.
+                </p>
 
-                  <div className="bg-black/40 backdrop-blur-md rounded-xl p-5 border border-white/10 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-sm bg-brand animate-pulse"></div>
-                        <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Analysis Steps</span>
-                      </div>
-                      <span className="text-sm font-bold text-brand tabular-nums">{loadingProgress}%</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-brand rounded-full"
-                        style={{ width: `${loadingProgress}%`, transition: 'width 0.4s ease-out' }}
-                      ></div>
-                    </div>
-                    <div className="space-y-2">
-                      {ANALYSIS_STEPS.map((s, i) => (
-                        <div key={i} className={`flex items-center gap-3 transition-all duration-300 ${i < loadingStepIdx ? 'opacity-50' : i === loadingStepIdx ? 'opacity-100' : 'opacity-30'
-                          }`}>
-                          {i < loadingStepIdx ? (
-                            <CheckIcon className="w-4 h-4 text-brand flex-shrink-0" />
-                          ) : i === loadingStepIdx ? (
-                            <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
-                              <div className="w-2 h-2 rounded-full bg-brand animate-pulse"></div>
-                            </div>
-                          ) : (
-                            <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
-                              <div className="w-1.5 h-1.5 rounded-full bg-zinc-600"></div>
-                            </div>
-                          )}
-                          <div className="flex flex-col">
-                            <span className={`text-xs font-semibold ${i === loadingStepIdx ? 'text-white' : 'text-zinc-500'}`}>{s.label}</span>
-                            {i === loadingStepIdx && (
-                              <span className="text-[10px] text-zinc-600 mt-0.5">{s.detail}</span>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                {/* Skeleton Result Cards */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 animate-pulse">
+                    <div className="h-3 w-14 bg-neutral-700 rounded mb-4"></div>
+                    <div className="h-10 w-24 bg-neutral-700 rounded-lg mb-2"></div>
+                    <div className="h-3 w-16 bg-neutral-800 rounded"></div>
                   </div>
+                  <div className="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 animate-pulse" style={{ animationDelay: '150ms' }}>
+                    <div className="h-3 w-16 bg-neutral-700 rounded mb-4"></div>
+                    <div className="h-10 w-20 bg-neutral-700 rounded-lg mb-2"></div>
+                    <div className="h-3 w-14 bg-neutral-800 rounded"></div>
+                  </div>
+                </div>
+
+                {/* Progress Panel */}
+                <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-sm bg-brand animate-pulse"></div>
+                      <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Analysis Steps</span>
+                    </div>
+                    <span className="text-base font-bold text-brand tabular-nums">{loadingProgress}%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-brand rounded-full"
+                      style={{ width: `${loadingProgress}%`, transition: 'width 0.4s ease-out' }}
+                    ></div>
+                  </div>
+                  <div className="space-y-2">
+                    {ANALYSIS_STEPS.map((s, i) => (
+                      <div key={i} className={`flex items-center gap-3 transition-all duration-300 ${i < loadingStepIdx ? 'opacity-50' : i === loadingStepIdx ? 'opacity-100' : 'opacity-30'
+                        }`}>
+                        {i < loadingStepIdx ? (
+                          <CheckIcon className="w-4 h-4 text-brand flex-shrink-0" />
+                        ) : i === loadingStepIdx ? (
+                          <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
+                            <div className="w-2 h-2 rounded-full bg-brand animate-pulse"></div>
+                          </div>
+                        ) : (
+                          <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
+                            <div className="w-1.5 h-1.5 rounded-full bg-zinc-600"></div>
+                          </div>
+                        )}
+                        <div className="flex flex-col">
+                          <span className={`text-sm font-semibold ${i === loadingStepIdx ? 'text-white' : 'text-zinc-500'}`}>{s.label}</span>
+                          {i === loadingStepIdx && (
+                            <span className="text-xs text-zinc-600 mt-0.5">{s.detail}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'error':
+        const guidance = getErrorGuidance(error || '');
+        return (
+          <div className="w-full animate-fade-in-up py-4 lg:py-0">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Left: Image Preview */}
+              <div className="relative w-full min-h-[40vh] lg:min-h-[50vh] bg-black rounded-2xl overflow-hidden border border-red-500/20">
+                {currentImage && (
+                  <img src={`data:image/jpeg;base64,${currentImage}`} alt="Failed analysis" className="w-full h-full object-contain absolute inset-0 opacity-40" />
+                )}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-red-500/10 backdrop-blur-md p-5 rounded-full border border-red-500/20">
+                    <AlertTriangleIcon className="w-12 h-12 text-red-400" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Error Details */}
+              <div className="flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-2.5 h-2.5 bg-red-500 rounded-sm"></div>
+                  <span className="text-sm font-bold text-red-400 uppercase tracking-widest">Analysis Error</span>
+                </div>
+                <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight mb-4">{guidance.title}</h2>
+
+                <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
+                  <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Try the following</p>
+                  <div className="space-y-3">
+                    {guidance.tips.map((tip, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 mt-2 bg-brand rounded-full flex-shrink-0"></div>
+                        <p className="text-zinc-300 text-base leading-relaxed">{tip}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={handleRetry}
+                    className="flex-1 group bg-brand hover:bg-brand-light text-white px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all active:scale-95"
+                  >
+                    <RetryIcon className="w-5 h-5" />
+                    Retry Analysis
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    className="flex-1 group bg-neutral-900 hover:bg-neutral-800 text-zinc-300 px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all border border-neutral-700 active:scale-95"
+                  >
+                    Start Over
+                  </button>
                 </div>
               </div>
             </div>
@@ -254,8 +398,22 @@ const App: React.FC = () => {
     }
   };
 
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
+      <Confetti active={showConfetti} />
+      {showOnboarding && <Onboarding onComplete={handleOnboardingComplete} />}
+      {/* Theme Toggle — always visible */}
+      <button
+        onClick={toggleTheme}
+        className="fixed top-5 right-5 z-50 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 p-2.5 rounded-xl transition-all active:scale-90"
+        aria-label="Toggle theme"
+        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {theme === 'dark' ? <SunIcon className="w-4 h-4 text-zinc-400" /> : <MoonIcon className="w-4 h-4 text-zinc-400" />}
+      </button>
+
       {/* Logo — clickable home button, shown on all pages except landing */}
       {step !== 'source' && (
         <div className="w-full max-w-[1400px] mb-6 lg:mb-10">
@@ -265,14 +423,8 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <main className="w-full max-w-[1400px] flex-1">
-        {error && (step === 'source') && (
-          <div className="mb-8 p-5 bg-red-500/5 border border-red-500/15 text-red-400 rounded-2xl flex items-center justify-center gap-3 animate-fade-in-up">
-            <div className="w-2.5 h-2.5 bg-red-500 rounded-sm"></div>
-            <span className="text-sm font-bold uppercase tracking-wider">{error}</span>
-          </div>
-        )}
 
+      <main className="w-full max-w-[1400px] flex-1">
         {/* Main Content Card */}
         <div className={`
             glass rounded-3xl relative overflow-hidden transition-all duration-700

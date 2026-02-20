@@ -26,14 +26,14 @@ export const Feedback: React.FC<FeedbackProps> = ({ sessionId }) => {
         return (
             <div className="flex items-center gap-2 mt-6 p-3 bg-brand/10 rounded-xl border border-brand/20 animate-fade-in text-brand justify-center">
                 <CheckIcon className="w-5 h-5" />
-                <span className="text-sm font-semibold">Thanks for your feedback!</span>
+                <span className="text-base font-semibold">Thanks for your feedback!</span>
             </div>
         );
     }
 
     return (
         <div className="mt-8 pt-6 border-t border-neutral-800 flex flex-col items-center gap-4 animate-fade-in">
-            <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Was this result accurate?</p>
+            <p className="text-sm text-zinc-500 font-bold uppercase tracking-widest">Was this result accurate?</p>
             <div className="flex gap-4">
                 <button
                     onClick={() => handleVote('up')}

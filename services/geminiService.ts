@@ -1,10 +1,10 @@
 import type { GeminiAnalysisResponse } from '../types';
 
-export async function analyzeImageForMetrics(base64Image: string): Promise<{ heightCm: number; weightKg: number; accuracy: 'high' | 'medium' | 'low' }> {
+export async function analyzeImageForMetrics(base64Image: string, referenceObject?: string): Promise<{ heightCm: number; weightKg: number; accuracy: 'high' | 'medium' | 'low' }> {
     const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ base64Image }),
+        body: JSON.stringify({ base64Image, referenceObject: referenceObject || 'none' }),
     });
 
     if (!response.ok) {
