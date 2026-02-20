@@ -7,6 +7,7 @@ import { ImageCropper } from './components/ImageCropper';
 import { ComparisonMode } from './components/ComparisonMode';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { GooeyText } from '@/components/ui/gooey-text-morphing';
+import { FallingPattern } from '@/components/ui/falling-pattern';
 
 import { analyzeImageForMetrics } from './services/geminiService';
 import type { AnalysisResult } from './types';
@@ -400,7 +401,10 @@ const App: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
+    <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30 relative">
+      <div className="fixed inset-0 z-[-1] pointer-events-none opacity-40">
+        <FallingPattern />
+      </div>
       <Confetti active={showConfetti} />
       {/* Theme Toggle — always visible */}
       {/* Theme Toggle — always visible */}
