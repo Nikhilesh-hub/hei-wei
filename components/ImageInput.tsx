@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { UploadIcon, ArrowLeftIcon, CameraIcon, SlashIcon, DoorIcon, BoltIcon, BoxIcon } from './icons';
+import { UploadIcon, ArrowLeftIcon, CameraIcon, SlashIcon, DoorIcon, BoltIcon, BoxIcon, BodyScanIcon } from './icons';
 import { resizeImage } from '../utils/imageUtils';
 
 interface ImageInputProps {
