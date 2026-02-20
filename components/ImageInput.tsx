@@ -64,7 +64,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
                 {/* Left: Action Area */}
                 <div
-                    className={`w-full aspect-[4/3] lg:aspect-auto lg:h-[500px] border-2 border-dashed rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${isDragging ? 'border-brand bg-brand/5' : 'border-neutral-700 bg-neutral-900 hover:bg-neutral-800 hover:border-neutral-500'}`}
+                    className={`w-full min-h-[400px] lg:h-[500px] border-2 border-dashed rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 p-10 lg:p-12 ${isDragging ? 'border-brand bg-brand/5' : 'border-neutral-700 bg-neutral-900 hover:bg-neutral-800 hover:border-neutral-500'}`}
                     onClick={() => fileInputRef.current?.click()}
                     onDragEnter={() => setIsDragging(true)}
                     onDragLeave={() => setIsDragging(false)}
@@ -78,7 +78,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                     <div className="w-16 h-16 bg-neutral-800 rounded-2xl flex items-center justify-center mb-6 border border-neutral-700">
                         {isCamera ? <CameraIcon className="w-7 h-7 text-brand" /> : <UploadIcon className="w-7 h-7 text-brand" />}
                     </div>
-                    <h3 className="text-4xl font-black text-white mb-2 tracking-tight">
+                    <h3 className="text-3xl sm:text-4xl font-black text-white mb-2 tracking-tight">
                         {isCamera ? 'Tap to Capture' : 'Upload Photo'}
                     </h3>
                     <p className="text-zinc-400 mb-6 text-center max-w-xs text-xl font-medium opacity-90">

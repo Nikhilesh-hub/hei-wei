@@ -176,7 +176,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, image, onR
                             <span className="text-8xl font-black text-white">H</span>
                         </div>
                         <p className="text-lg font-bold text-brand uppercase tracking-[0.3em] mb-4">Height</p>
-                        <p className="text-7xl lg:text-8xl leading-none font-black text-white tracking-tight mb-4">{hMain}</p>
+                        <p className="text-5xl sm:text-7xl lg:text-8xl leading-none font-black text-white tracking-tight mb-4">{hMain}</p>
                         <p className="text-xl font-medium text-zinc-500">{hSub}</p>
                     </div>
 
@@ -186,7 +186,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, image, onR
                             <span className="text-8xl font-black text-white">W</span>
                         </div>
                         <p className="text-lg font-bold text-brand uppercase tracking-[0.3em] mb-4">Weight</p>
-                        <p className="text-7xl lg:text-8xl leading-none font-black text-white tracking-tight mb-4">{wMain}</p>
+                        <p className="text-5xl sm:text-7xl lg:text-8xl leading-none font-black text-white tracking-tight mb-4">{wMain}</p>
                         <p className="text-xl font-medium text-zinc-500">{wSub}</p>
                     </div>
                 </div>
