@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { UploadIcon, ArrowLeftIcon, CameraIcon } from './icons';
+import { UploadIcon, ArrowLeftIcon, CameraIcon, SlashIcon, DoorIcon, BoltIcon, BoxIcon } from './icons';
 import { resizeImage } from '../utils/imageUtils';
 
 interface ImageInputProps {
@@ -53,9 +53,9 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                     className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors bg-neutral-800 hover:bg-neutral-700 px-4 py-2.5 rounded-xl border border-neutral-700"
                 >
                     <ArrowLeftIcon className="w-4 h-4" />
-                    <span className="text-base font-bold uppercase tracking-widest">Back</span>
+                    <span className="text-lg font-bold uppercase tracking-widest">Back</span>
                 </button>
-                <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest hidden sm:block">
+                <span className="text-base font-bold text-zinc-500 uppercase tracking-widest hidden sm:block">
                     {isCamera ? 'Take Photo' : 'Import Image'}
                 </span>
                 <div className="w-20 hidden sm:block"></div>
@@ -78,13 +78,13 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                     <div className="w-16 h-16 bg-neutral-800 rounded-2xl flex items-center justify-center mb-6 border border-neutral-700">
                         {isCamera ? <CameraIcon className="w-7 h-7 text-brand" /> : <UploadIcon className="w-7 h-7 text-brand" />}
                     </div>
-                    <h3 className="text-3xl font-bold text-white mb-2">
+                    <h3 className="text-4xl font-black text-white mb-2 tracking-tight">
                         {isCamera ? 'Tap to Capture' : 'Upload Photo'}
                     </h3>
-                    <p className="text-zinc-400 mb-6 text-center max-w-xs text-lg">
-                        {isCamera ? 'Opens your device camera' : <><span>Drag & drop an image or </span><br /><span>paste from clipboard </span><span className="text-brand font-bold bg-brand/10 px-2 py-0.5 rounded text-sm">Ctrl+V</span></>}
+                    <p className="text-zinc-400 mb-6 text-center max-w-xs text-xl font-medium opacity-90">
+                        {isCamera ? 'Opens your device camera' : <><span>Drag & drop an image or </span><br /><span>paste from clipboard </span><span className="text-brand font-bold bg-brand/10 px-2 py-0.5 rounded text-base">Ctrl+V</span></>}
                     </p>
-                    <p className="text-sm text-zinc-600 font-bold uppercase tracking-widest bg-neutral-800 px-3 py-1.5 rounded-full border border-neutral-700">JPG • PNG • HEIC</p>
+                    <p className="text-base text-zinc-600 font-bold uppercase tracking-widest bg-neutral-800 px-4 py-2 rounded-full border border-neutral-700">JPG • PNG • HEIC</p>
 
                     <input
                         type="file"
@@ -99,7 +99,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
 
                 {/* Right: Info Panel */}
                 <div className="bg-neutral-900 rounded-2xl p-8 lg:p-10 border border-neutral-800 flex flex-col justify-center">
-                    <h4 className="text-2xl font-bold text-white mb-6">Best Practices</h4>
+                    <h4 className="text-3xl font-black text-white mb-8 tracking-tight">Best Practices</h4>
                     <div className="space-y-5">
                         {[
                             { label: "Reference", text: "Stand near a door frame or standard object for scale." },
@@ -109,8 +109,8 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                             <div key={i} className="flex gap-4">
                                 <div className="w-2.5 h-2.5 mt-1.5 bg-brand rounded-sm flex-shrink-0"></div>
                                 <div>
-                                    <p className="text-white font-bold text-lg mb-1">{item.label}</p>
-                                    <p className="text-zinc-500 text-lg leading-relaxed">{item.text}</p>
+                                    <p className="text-white font-bold text-xl mb-1">{item.label}</p>
+                                    <p className="text-zinc-500 text-lg leading-relaxed font-medium">{item.text}</p>
                                 </div>
                             </div>
                         ))}
@@ -119,14 +119,17 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
 
                 {/* Reference Object Hint */}
                 <div className="mt-6 bg-neutral-900 rounded-2xl p-6 lg:p-8 border border-neutral-800">
-                    <h4 className="text-lg font-bold text-white mb-2">🎯 Improve Accuracy</h4>
-                    <p className="text-base text-zinc-500 mb-4">Standing near a known object? Let us know for better results.</p>
+                    <h4 className="text-2xl font-black text-white mb-2 tracking-tight flex items-center gap-3">
+                        <BodyScanIcon className="w-8 h-8 text-brand" />
+                        Improve Accuracy
+                    </h4>
+                    <p className="text-lg text-zinc-500 mb-6 font-medium">Standing near a known object? Let us know for better results.</p>
                     <div className="flex flex-wrap gap-2">
                         {[
-                            { id: 'none', label: 'No reference', icon: '❌' },
-                            { id: 'door_frame', label: 'Door frame', icon: '🚪' },
-                            { id: 'light_switch', label: 'Light switch', icon: '💡' },
-                            { id: 'refrigerator', label: 'Refrigerator', icon: '🧊' },
+                            { id: 'none', label: 'No reference', icon: <SlashIcon className="w-5 h-5" /> },
+                            { id: 'door_frame', label: 'Door frame', icon: <DoorIcon className="w-5 h-5" /> },
+                            { id: 'light_switch', label: 'Light switch', icon: <BoltIcon className="w-5 h-5" /> },
+                            { id: 'refrigerator', label: 'Refrigerator', icon: <BoxIcon className="w-5 h-5" /> },
                         ].map((opt) => (
                             <button
                                 key={opt.id}

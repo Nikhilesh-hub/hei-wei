@@ -135,12 +135,12 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, image, onR
                     {image && (
                         <img src={`data:image/jpeg;base64,${image}`} alt="Analyzed Subject" className="w-full h-full object-contain absolute inset-0" />
                     )}
-                    <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                        <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest border backdrop-blur-md ${accuracy === 'high' ? 'bg-green-500/20 text-green-300 border-green-500/20' :
+                    <div className="absolute bottom-0 inset-x-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
+                        <span className={`inline-flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-widest border backdrop-blur-md ${accuracy === 'high' ? 'bg-green-500/20 text-green-300 border-green-500/20' :
                             accuracy === 'medium' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/20' :
                                 'bg-orange-500/20 text-orange-300 border-orange-500/20'
                             }`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${accuracy === 'high' ? 'bg-green-400' :
+                            <span className={`w-2 h-2 rounded-full ${accuracy === 'high' ? 'bg-green-400' :
                                 accuracy === 'medium' ? 'bg-yellow-400' : 'bg-orange-400'
                                 }`}></span>
                             {accuracy} Confidence
@@ -162,7 +162,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, image, onR
                         </button>
                         <button
                             onClick={() => onUnitChange('imperial')}
-                            className={`px-5 py-2 rounded-lg text-base font-bold tracking-widest uppercase transition-all ${unitSystem === 'imperial' ? 'bg-brand text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                            className={`px-6 py-2.5 rounded-xl text-lg font-bold tracking-widest uppercase transition-all ${unitSystem === 'imperial' ? 'bg-brand text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
                         >
                             Imperial
                         </button>
@@ -175,9 +175,9 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, image, onR
                         <div className="absolute top-0 right-0 p-6 opacity-[0.06] group-hover:opacity-10 transition-opacity">
                             <span className="text-8xl font-black text-white">H</span>
                         </div>
-                        <p className="text-base font-bold text-brand uppercase tracking-[0.3em] mb-4">Height</p>
-                        <p className="text-6xl lg:text-7xl leading-none font-black text-white tracking-tight mb-3">{hMain}</p>
-                        <p className="text-lg font-medium text-zinc-500">{hSub}</p>
+                        <p className="text-lg font-bold text-brand uppercase tracking-[0.3em] mb-4">Height</p>
+                        <p className="text-7xl lg:text-8xl leading-none font-black text-white tracking-tight mb-4">{hMain}</p>
+                        <p className="text-xl font-medium text-zinc-500">{hSub}</p>
                     </div>
 
                     {/* Weight Card */}
@@ -185,16 +185,16 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ result, image, onR
                         <div className="absolute top-0 right-0 p-6 opacity-[0.06] group-hover:opacity-10 transition-opacity">
                             <span className="text-8xl font-black text-white">W</span>
                         </div>
-                        <p className="text-base font-bold text-brand uppercase tracking-[0.3em] mb-4">Weight</p>
-                        <p className="text-6xl lg:text-7xl leading-none font-black text-white tracking-tight mb-3">{wMain}</p>
-                        <p className="text-lg font-medium text-zinc-500">{wSub}</p>
+                        <p className="text-lg font-bold text-brand uppercase tracking-[0.3em] mb-4">Weight</p>
+                        <p className="text-7xl lg:text-8xl leading-none font-black text-white tracking-tight mb-4">{wMain}</p>
+                        <p className="text-xl font-medium text-zinc-500">{wSub}</p>
                     </div>
                 </div>
 
                 <div className="flex flex-col gap-4">
                     <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-4">
                         <InfoIcon className="w-5 h-5 text-zinc-500 ml-1 flex-shrink-0" />
-                        <p className="text-base text-zinc-500 leading-relaxed">
+                        <p className="text-lg text-zinc-500 leading-relaxed font-medium">
                             These estimates are generated by AI based on visual markers and should not be considered medical data. Lighting, clothing, and camera angle affect precision.
                         </p>
                     </div>

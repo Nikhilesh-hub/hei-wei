@@ -264,8 +264,8 @@ const App: React.FC = () => {
 
               {/* Right: Skeleton Results + Progress */}
               <div className="flex flex-col justify-center">
-                <p className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-2">Processing</p>
-                <p className="text-lg text-zinc-400 font-normal mb-6">
+                <p className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-3">Processing</p>
+                <p className="text-xl text-zinc-400 font-medium mb-8 leading-relaxed">
                   Spatial AI is identifying skeletal landmarks to calculate your biometrics.
                 </p>
 
@@ -292,9 +292,9 @@ const App: React.FC = () => {
                     </div>
                     <span className="text-lg font-bold text-brand tabular-nums">{loadingProgress}%</span>
                   </div>
-                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-2.5 w-full bg-white/10 rounded-full overflow-hidden mb-2">
                     <div
-                      className="h-full bg-brand rounded-full"
+                      className="h-full bg-brand rounded-full shadow-[0_0_15px_rgba(0,165,98,0.5)]"
                       style={{ width: `${loadingProgress}%`, transition: 'width 0.4s ease-out' }}
                     ></div>
                   </div>
@@ -314,9 +314,9 @@ const App: React.FC = () => {
                           </div>
                         )}
                         <div className="flex flex-col">
-                          <span className={`text-sm font-semibold ${i === loadingStepIdx ? 'text-white' : 'text-zinc-500'}`}>{s.label}</span>
+                          <span className={`text-lg font-bold ${i === loadingStepIdx ? 'text-white' : 'text-zinc-500'}`}>{s.label}</span>
                           {i === loadingStepIdx && (
-                            <span className="text-xs text-zinc-600 mt-0.5">{s.detail}</span>
+                            <span className="text-base text-zinc-600 mt-1 font-medium">{s.detail}</span>
                           )}
                         </div>
                       </div>
@@ -350,15 +350,15 @@ const App: React.FC = () => {
                   <div className="w-2.5 h-2.5 bg-red-500 rounded-sm"></div>
                   <span className="text-base font-bold text-red-400 uppercase tracking-widest">Analysis Error</span>
                 </div>
-                <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">{guidance.title}</h2>
+                <h2 className="text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">{guidance.title}</h2>
 
                 <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
                   <p className="text-base font-bold text-zinc-500 uppercase tracking-widest mb-4">Try the following</p>
                   <div className="space-y-3">
                     {guidance.tips.map((tip, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <div className="w-1.5 h-1.5 mt-2 bg-brand rounded-full flex-shrink-0"></div>
-                        <p className="text-zinc-300 text-base leading-relaxed">{tip}</p>
+                      <div key={i} className="flex items-start gap-4">
+                        <div className="w-2 h-2 mt-2.5 bg-brand rounded-sm flex-shrink-0"></div>
+                        <p className="text-zinc-300 text-lg leading-relaxed font-medium">{tip}</p>
                       </div>
                     ))}
                   </div>

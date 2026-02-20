@@ -133,8 +133,8 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({ imageBase64, onCrop,
         <div className="w-full animate-fade-in-up py-4 lg:py-0">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h2 className="text-3xl font-black text-white tracking-tight">Crop Image</h2>
-                    <p className="text-lg text-zinc-400 mt-1">Drag to position, resize from any corner</p>
+                    <h2 className="text-4xl font-black text-white tracking-tight">Crop Image</h2>
+                    <p className="text-xl text-zinc-400 mt-2 font-medium">Drag to position, resize from any corner</p>
                 </div>
                 <div className="flex gap-3">
                     <button
