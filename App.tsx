@@ -5,6 +5,8 @@ import { Confetti } from './components/Confetti';
 import { Onboarding } from './components/Onboarding';
 import { ImageCropper } from './components/ImageCropper';
 import { ComparisonMode } from './components/ComparisonMode';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { GooeyText } from '@/components/ui/gooey-text-morphing';
 
 import { analyzeImageForMetrics } from './services/geminiService';
 import type { AnalysisResult } from './types';
@@ -147,9 +149,13 @@ const App: React.FC = () => {
                 <div className="mb-8 flex justify-center lg:justify-start">
                   <HeiWeiLogo className="w-16 h-16" />
                 </div>
-                <h2 className="text-5xl xl:text-7xl font-extrabold text-white mb-5 tracking-tight leading-[0.95]">
-                  Hei<br />
-                  <span className="text-brand">wei.</span>
+                <h2 className="text-5xl xl:text-7xl font-extrabold text-white mb-5 tracking-tight leading-[0.95] flex flex-col items-center lg:items-start">
+                  <span>Hei</span>
+                  <GooeyText
+                    texts={["weight.", "height.", "metrics.", "biometrics.", "spatial AI.", "wei."]}
+                    className="text-brand h-[1.1em]"
+                    textClassName="text-5xl xl:text-7xl font-extrabold"
+                  />
                 </h2>
                 <p className="text-zinc-400 text-lg lg:text-xl font-normal mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                   Instant body metrics from a single photo. Know your height and weight in seconds — powered by spatial AI.
@@ -397,14 +403,10 @@ const App: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
       <Confetti active={showConfetti} />
       {/* Theme Toggle — always visible */}
-      <button
-        onClick={toggleTheme}
-        className="fixed top-5 right-5 z-50 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 p-2.5 rounded-xl transition-all active:scale-90"
-        aria-label="Toggle theme"
-        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      >
-        {theme === 'dark' ? <SunIcon className="w-4 h-4 text-zinc-400" /> : <MoonIcon className="w-4 h-4 text-zinc-400" />}
-      </button>
+      {/* Theme Toggle — always visible */}
+      <div className="fixed top-5 right-5 z-50">
+        <ThemeToggle />
+      </div>
 
       {/* Logo — clickable home button, shown on all pages except landing */}
       {step !== 'source' && (
