@@ -148,48 +148,48 @@ const App: React.FC = () => {
                 <div className="mb-8 flex justify-center lg:justify-start">
                   <HeiWeiLogo className="w-16 h-16" />
                 </div>
-                <h2 className="text-5xl xl:text-7xl font-extrabold text-white mb-2 tracking-tight leading-[0.95]">
+                <h2 className="text-6xl xl:text-8xl font-extrabold text-white mb-2 tracking-tight leading-[0.95]">
                   Hei-<span className="text-brand">wei.</span>
                 </h2>
-                <div className="flex items-center justify-center lg:justify-start gap-2 mb-8 h-8">
-                  <span className="text-zinc-500 font-bold uppercase tracking-widest text-[10px] sm:text-xs">Spatial AI for</span>
+                <div className="flex items-center justify-center lg:justify-start gap-2 mb-8 h-10">
+                  <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs sm:text-sm">Spatial AI for</span>
                   <GooeyText
                     texts={["Anthropometrics", "Biometrics", "Body Analysis", "Height & Weight", "Instant Metrics"]}
                     className="text-brand h-full"
-                    textClassName="text-[10px] sm:text-xs font-bold uppercase tracking-widest"
+                    textClassName="text-xs sm:text-sm font-bold uppercase tracking-widest"
                   />
                 </div>
-                <p className="text-zinc-400 text-lg lg:text-xl font-normal mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                <p className="text-zinc-400 text-xl lg:text-2xl font-normal mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                   Instant body metrics from a single photo. Know your height and weight in seconds — powered by spatial AI.
                 </p>
 
                 {/* Feature highlights */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover-lift">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 bg-brand rounded-sm"></div>
-                      <p className="text-sm font-bold text-brand uppercase tracking-widest">Accuracy</p>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-3 bg-brand rounded-sm"></div>
+                      <p className="text-base font-bold text-brand uppercase tracking-widest">Accuracy</p>
                     </div>
-                    <p className="text-zinc-400 text-base leading-relaxed">32 skeletal landmarks analyzed using advanced computer vision for precise measurements.</p>
+                    <p className="text-zinc-400 text-lg leading-relaxed">32 skeletal landmarks analyzed using advanced computer vision for precise measurements.</p>
                   </div>
                   <div className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover-lift">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 bg-brand rounded-sm"></div>
-                      <p className="text-sm font-bold text-brand uppercase tracking-widest">Privacy</p>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-3 bg-brand rounded-sm"></div>
+                      <p className="text-base font-bold text-brand uppercase tracking-widest">Privacy</p>
                     </div>
-                    <p className="text-zinc-400 text-base leading-relaxed">Your photos are never stored. All processing happens in real-time and data is discarded instantly.</p>
+                    <p className="text-zinc-400 text-lg leading-relaxed">Your photos are never stored. All processing happens in real-time and data is discarded instantly.</p>
                   </div>
                 </div>
 
                 <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800 text-left">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-2 h-2 bg-brand rounded-sm"></div>
-                    <p className="text-sm font-bold text-brand uppercase tracking-widest">How It Works</p>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-3 h-3 bg-brand rounded-sm"></div>
+                    <p className="text-base font-bold text-brand uppercase tracking-widest">How It Works</p>
                   </div>
-                  <p className="text-zinc-400 leading-relaxed text-base mb-4">
+                  <p className="text-zinc-400 leading-relaxed text-lg mb-6">
                     Hei-wei uses Google's Gemini AI to analyze body proportions from a single photograph. It estimates height and weight by identifying skeletal landmarks, calibrating against environmental reference objects, and correcting for camera perspective.
                   </p>
-                  <div className="flex gap-6 text-xs text-zinc-600 font-bold uppercase tracking-widest">
+                  <div className="flex gap-6 text-sm text-zinc-600 font-bold uppercase tracking-widest">
                     <span>◆ Head-to-toe ratio</span>
                     <span>◆ Bone structure</span>
                     <span>◆ Body density</span>
@@ -208,8 +208,8 @@ const App: React.FC = () => {
                       <CameraIcon className="w-6 h-6 text-brand group-hover:text-white transition-colors duration-300" />
                     </div>
                     <div className="text-left">
-                      <span className="block text-xl font-bold text-white">Capture Image</span>
-                      <span className="block text-sm text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">Use Camera</span>
+                      <span className="block text-2xl font-bold text-white">Capture Image</span>
+                      <span className="block text-base text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">Use Camera</span>
                     </div>
                   </div>
                   <span className="text-zinc-700 group-hover:text-white/40 font-light text-3xl group-hover:translate-x-1 transition-all duration-300">→</span>
@@ -224,8 +224,8 @@ const App: React.FC = () => {
                       <UploadIcon className="w-6 h-6 text-brand group-hover:text-white transition-colors duration-300" />
                     </div>
                     <div className="text-left">
-                      <span className="block text-xl font-bold text-white">Upload Photo</span>
-                      <span className="block text-sm text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">From Gallery</span>
+                      <span className="block text-2xl font-bold text-white">Upload Photo</span>
+                      <span className="block text-base text-zinc-500 group-hover:text-white/60 uppercase tracking-widest font-semibold mt-0.5 transition-colors duration-300">From Gallery</span>
                     </div>
                   </div>
                   <span className="text-zinc-700 group-hover:text-white/40 font-light text-3xl group-hover:translate-x-1 transition-all duration-300">→</span>
