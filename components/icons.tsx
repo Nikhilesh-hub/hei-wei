@@ -94,8 +94,13 @@ export const BodyScanIcon: React.FC<{ className?: string }> = ({ className = "w-
 
 export const HeiWeiLogo: React.FC<{ className?: string }> = ({ className = "w-8 h-8" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#00A562" />
-        <path d="M10 8v16M22 8v16M10 16h12" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M7 8h6M7 24h6M19 8h6M19 24h6" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+        <rect width="32" height="32" rx="7" fill="#00A562" />
+        <rect x="8" y="6" width="3.5" height="20" rx="1.75" fill="white" />
+        <rect x="20.5" y="6" width="3.5" height="20" rx="1.75" fill="white" />
+        <rect x="9.75" y="14.25" width="12.5" height="3.5" rx="1.75" fill="white" />
+        <rect x="5.5" y="6.5" width="5" height="1.2" rx="0.6" fill="white" opacity="0.5" />
+        <rect x="5.5" y="24.3" width="5" height="1.2" rx="0.6" fill="white" opacity="0.5" />
+        <rect x="21.5" y="6.5" width="5" height="1.2" rx="0.6" fill="white" opacity="0.5" />
+        <rect x="21.5" y="24.3" width="5" height="1.2" rx="0.6" fill="white" opacity="0.5" />
     </svg>
 );

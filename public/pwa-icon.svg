@@ -1,5 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" fill="none">
-  <rect width="192" height="192" rx="40" fill="#00A562"/>
-  <path d="M60 48v96M132 48v96M60 96h72" stroke="white" stroke-width="15" stroke-linecap="round"/>
-  <path d="M42 48h36M42 144h36M114 48h36M114 144h36" stroke="white" stroke-width="9" stroke-linecap="round" opacity="0.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="108" fill="#00A562"/>
+  <!-- Main H shape - very bold -->
+  <rect x="130" y="100" width="52" height="312" rx="26" fill="white"/>
+  <rect x="330" y="100" width="52" height="312" rx="26" fill="white"/>
+  <rect x="156" y="230" width="200" height="52" rx="26" fill="white"/>
+  <!-- Measurement ticks -->
+  <rect x="90" y="108" width="80" height="18" rx="9" fill="white" opacity="0.5"/>
+  <rect x="90" y="386" width="80" height="18" rx="9" fill="white" opacity="0.5"/>
+  <rect x="342" y="108" width="80" height="18" rx="9" fill="white" opacity="0.5"/>
+  <rect x="342" y="386" width="80" height="18" rx="9" fill="white" opacity="0.5"/>
 </svg>
