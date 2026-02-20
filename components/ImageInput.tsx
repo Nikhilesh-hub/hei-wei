@@ -78,7 +78,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                     <div className="w-16 h-16 bg-neutral-800 rounded-2xl flex items-center justify-center mb-6 border border-neutral-700">
                         {isCamera ? <CameraIcon className="w-7 h-7 text-brand" /> : <UploadIcon className="w-7 h-7 text-brand" />}
                     </div>
-                    <h3 className="text-3xl sm:text-4xl font-black text-white mb-2 tracking-tight">
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 tracking-tight">
                         {isCamera ? 'Tap to Capture' : 'Upload Photo'}
                     </h3>
                     <p className="text-zinc-400 mb-6 text-center max-w-xs text-xl font-medium opacity-90">
@@ -139,7 +139,10 @@ export const ImageInput: React.FC<ImageInputProps> = ({ onAnalyze, onBack, captu
                                     : 'bg-neutral-800 text-zinc-400 border-neutral-700 hover:border-zinc-500 hover:text-zinc-300'
                                     }`}
                             >
-                                {opt.icon} {opt.label}
+                                <div className="flex items-center gap-2">
+                                    {opt.icon}
+                                    <span>{opt.label}</span>
+                                </div>
                             </button>
                         ))}
                     </div>
