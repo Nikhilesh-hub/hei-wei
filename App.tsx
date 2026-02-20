@@ -149,14 +149,17 @@ const App: React.FC = () => {
                 <div className="mb-8 flex justify-center lg:justify-start">
                   <HeiWeiLogo className="w-16 h-16" />
                 </div>
-                <h2 className="text-5xl xl:text-7xl font-extrabold text-white mb-5 tracking-tight leading-[0.95] flex flex-col items-center lg:items-start">
-                  <span>Hei</span>
-                  <GooeyText
-                    texts={["weight.", "height.", "metrics.", "biometrics.", "spatial AI.", "wei."]}
-                    className="text-brand h-[1.1em]"
-                    textClassName="text-5xl xl:text-7xl font-extrabold"
-                  />
+                <h2 className="text-5xl xl:text-7xl font-extrabold text-white mb-2 tracking-tight leading-[0.95]">
+                  Hei<span className="text-brand">wei.</span>
                 </h2>
+                <div className="flex items-center justify-center lg:justify-start gap-2 mb-8 h-8">
+                  <span className="text-zinc-500 font-bold uppercase tracking-widest text-[10px] sm:text-xs">Spatial AI for</span>
+                  <GooeyText
+                    texts={["Anthropometrics", "Biometrics", "Body Analysis", "Height & Weight", "Instant Metrics"]}
+                    className="text-brand h-full"
+                    textClassName="text-[10px] sm:text-xs font-bold uppercase tracking-widest"
+                  />
+                </div>
                 <p className="text-zinc-400 text-lg lg:text-xl font-normal mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                   Instant body metrics from a single photo. Know your height and weight in seconds — powered by spatial AI.
                 </p>
