@@ -4,7 +4,6 @@ import { ResultDisplay } from './components/ResultDisplay';
 import { Confetti } from './components/Confetti';
 import { Onboarding } from './components/Onboarding';
 import { ImageCropper } from './components/ImageCropper';
-import { ComparisonMode } from './components/ComparisonMode';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { GooeyText } from '@/components/ui/gooey-text-morphing';
 
@@ -13,7 +12,7 @@ import type { AnalysisResult } from './types';
 import { CameraIcon, UploadIcon, SpinnerIcon, CheckIcon, BodyScanIcon, HeiWeiLogo, RetryIcon, AlertTriangleIcon, SunIcon, MoonIcon } from './components/icons';
 import { useTheme } from './components/ThemeContext';
 
-type Step = 'source' | 'capture' | 'crop' | 'loading' | 'result' | 'error' | 'compare';
+type Step = 'source' | 'capture' | 'crop' | 'loading' | 'result' | 'error';
 type CaptureMode = 'upload' | 'camera';
 export type UnitSystem = 'metric' | 'imperial';
 
@@ -150,7 +149,7 @@ const App: React.FC = () => {
                   <HeiWeiLogo className="w-16 h-16" />
                 </div>
                 <h2 className="text-5xl xl:text-7xl font-extrabold text-white mb-2 tracking-tight leading-[0.95]">
-                  Hei<span className="text-brand">wei.</span>
+                  Hei-<span className="text-brand">wei.</span>
                 </h2>
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-8 h-8">
                   <span className="text-zinc-500 font-bold uppercase tracking-widest text-[10px] sm:text-xs">Spatial AI for</span>
@@ -236,19 +235,10 @@ const App: React.FC = () => {
                   Local Processing • Privacy Encrypted • v1.1
                 </p>
 
-                {/* Compare Mode Link */}
-                <button
-                  onClick={() => setStep('compare')}
-                  className="mt-4 w-full text-center text-sm text-zinc-500 hover:text-brand font-bold uppercase tracking-widest transition-colors py-2"
-                >
-                  ⚖️ Compare Mode — Track Changes Over Time
-                </button>
               </div>
             </div>
           </div>
         );
-      case 'compare':
-        return <ComparisonMode onBack={handleReset} />;
       case 'capture':
         return <ImageInput onAnalyze={handleImageCaptured} onBack={handleBack} captureMode={captureMode} referenceObject={referenceObject} onReferenceChange={setReferenceObject} />;
       case 'crop':
