@@ -256,10 +256,12 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-6 lg:py-12 px-4 lg:px-8 overflow-x-hidden selection:bg-brand/30">
-      {/* Logo — shown on all pages except landing */}
+      {/* Logo — clickable home button, shown on all pages except landing */}
       {step !== 'source' && (
         <div className="w-full max-w-[1400px] mb-6 lg:mb-10">
-          <HeiWeiLogo className="w-9 h-9" />
+          <button onClick={handleReset} className="hover:scale-105 active:scale-95 transition-transform" aria-label="Go to home page" title="Home">
+            <HeiWeiLogo className="w-9 h-9" />
+          </button>
         </div>
       )}
 

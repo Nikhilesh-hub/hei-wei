@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => {
           name: 'Hei-wei - AI Biometrics',
           short_name: 'Hei-wei',
           description: 'Instant body metrics from a single photo using AI.',
-          theme_color: '#000000',
-          background_color: '#000000',
+          theme_color: '#00A562',
+          background_color: '#0a0a0a',
           display: 'standalone',
           orientation: 'portrait',
           icons: [
