@@ -151,11 +151,11 @@ const App: React.FC = () => {
                 <h2 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white mb-2 tracking-tight leading-[1.1] lg:leading-[0.95]">
                   Hei-<span className="text-brand">wei.</span>
                 </h2>
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-2 gap-y-1 mb-4 min-h-[2.5rem]">
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-x-2 gap-y-1 mb-4 sm:h-10">
                   <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs sm:text-sm">Spatial AI for</span>
                   <GooeyText
                     texts={["Anthropometrics", "Biometrics", "Body Analysis", "Height & Weight", "Instant Metrics"]}
-                    className="text-brand h-full"
+                    className="text-brand h-10 sm:h-full"
                     textClassName="text-xs sm:text-sm font-bold uppercase tracking-widest"
                   />
                 </div>
